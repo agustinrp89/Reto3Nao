@@ -27,8 +27,7 @@ pipeline {
   stage('Build and push Docker image') {
       steps {
           withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: '6ba74068240689ca3768e41f1fd7dbb5d409cda4c4413f8b3abaebcde104b660',
+            $class: 'AmazonWebServicesCredentialsBinding',           
             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
           ]]) {
