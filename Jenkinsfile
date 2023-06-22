@@ -10,7 +10,7 @@ pipeline {
     stage('Install dep') {
       steps {
         
-          call 'npm install'
+          sh 'npm install'
           
           //sh 'yarn test'
         
@@ -20,7 +20,7 @@ pipeline {
       steps {
     
         //  sh 'yarn test'
-          call 'npm run test'
+          sh 'npm run test'
         
       }
     }
