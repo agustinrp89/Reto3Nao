@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        git 'gh repo clone agustinrp89/Reto3Nao'
+        git 'https://github.com/agustinrp89/Reto3Nao.git'
       }
     }
     stage('Install dep') {
