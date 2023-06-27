@@ -26,16 +26,11 @@ pipeline {
     }
   stage('Build and push Docker image') {
       steps {
-          withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding', 
-            credentialsId: 'agustin_mdp89',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]]) {
-            bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
+          withCredentials('imagen') {
+
             bat 'docker build -t radionet .'
-            bat 'docker tag radionet:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/radionet:latest'
-            bat 'docker push 786360065447.us-east-2.compute.amazonaws.com/radionet:latest'
+            bat 'docker run -d -p 8088:80 --name welcome-to-docker docker/welcome-to-docker'
+            
           }
         }
       }
