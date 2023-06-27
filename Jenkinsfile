@@ -33,7 +33,7 @@ pipeline {
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
           ]]) {
             bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
-            bat 'docker build -t radionet .'
+            bat 'docker build -t 786360065447.us-east-2.compute.amazonaws.com/radionet:latest .'
             bat 'docker tag radionet:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/radionet:latest'
             bat 'docker push 786360065447.us-east-2.compute.amazonaws.com/radionet:latest'
            
