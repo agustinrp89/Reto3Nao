@@ -35,7 +35,7 @@ pipeline {
             bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
             bat 'docker build -t radionet .'
             bat 'docker run -d -p 8088:3000 --name radionet reto3nao'
-            bat 'docker push 786360065447.us-east-2.compute.amazonaws.com/radionet:latest'
+           
        
         }
       }
