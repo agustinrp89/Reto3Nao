@@ -1,6 +1,8 @@
 pipeline {
   agent any
-  
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+  }
   stages {
     stage('Clone repository') {
       steps {
@@ -24,21 +26,22 @@ pipeline {
         
       }
     }
-  stage('Build and push Docker image') {
+  stages {
+    stage('Build') {
       steps {
-          withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding', 
-            credentialsId: 'agustin_mdp89',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-          ]]) {
-            bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
-            bat 'docker build -t 786360065447.us-east-2.compute.amazonaws.com/radionet:latest .'
-            bat 'docker tag radionet:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/radionet:latest'
-            bat 'docker push 786360065447.us-east-2.compute.amazonaws.com/radionet:latest'
-           
-          }
-        }
+        bat 'docker build -t agustinmdp89/jenkins-docker-hub .'
       }
+    }
+    stage('Login') {
+      steps {
+        bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+    stage('Push') {
+      steps {
+        bat 'docker push agustinmdp89/jenkins-docker-hub'
+      }
+    }
+  }
     }  
   }
