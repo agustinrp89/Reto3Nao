@@ -26,7 +26,7 @@ pipeline {
         
       }
     }
-  stages {
+  
     stage('Build') {
       steps {
         bat 'docker build -t agustinmdp89/jenkins-docker-hub .'
@@ -42,6 +42,6 @@ pipeline {
         bat 'docker push agustinmdp89/jenkins-docker-hub'
       }
     }
-  }
+  
     }  
   }
