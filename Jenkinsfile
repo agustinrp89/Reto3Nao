@@ -29,7 +29,7 @@ pipeline {
           
 
             bat 'docker build -t radionet .'
-            bat 'docker run -d -p 8088:80 --name welcome-to-docker docker/welcome-to-docker'
+            bat 'docker run -d -p 8088:80 --name Reto3Nao docker/Reto3Nao'
             
        
         }
