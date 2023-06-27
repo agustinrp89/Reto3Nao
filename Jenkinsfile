@@ -35,7 +35,7 @@ pipeline {
             bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
             bat 'docker build -t radionet .'
             bat 'docker tag radionet:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/radionet:latest'
-            bat 'docker push 786360065447.dkr.ecr.us-east-2.amazonaws.com/radionet:latest'
+            bat 'docker push ec2-18-116-97-61.us-east-2.compute.amazonaws.com/radionet:latest'
           }
         }
       }
