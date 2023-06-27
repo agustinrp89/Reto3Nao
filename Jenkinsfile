@@ -26,12 +26,12 @@ pipeline {
     }
   stage('Build and push Docker image') {
       steps {
-          withCredentials('imagen') {
+          
 
             bat 'docker build -t radionet .'
             bat 'docker run -d -p 8088:80 --name welcome-to-docker docker/welcome-to-docker'
             
-          }
+       
         }
       }
     }  
