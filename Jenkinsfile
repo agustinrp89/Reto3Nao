@@ -36,7 +36,7 @@ pipeline {
             bat 'docker build -t radionet .'
             bat 'docker run -d -p 8088:3000 --name radionet reto3nao'
            
-       
+          }
         }
       }
     }  
