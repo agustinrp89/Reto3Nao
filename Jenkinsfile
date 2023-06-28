@@ -24,7 +24,7 @@ pipeline {
         
       }
     }
- stage('Build and push Docker image') {
+stage('Build and push Docker image') {
     steps {
         withCredentials([[
             $class: 'AmazonWebServicesCredentialsBinding',
@@ -34,7 +34,7 @@ pipeline {
         ]]) {
             script {
                 // Mask sensitive information
-                maskPasswords(env.AKIA3OFVWLWTTR7ON5YF, env.NHk1PprZ5sH/+9RAioevbmt7f2rmL73g3OBaZcyx)
+                maskPasswords(env.AKIA3OFVWLWTTR7ON5YF, env.'NHk1PprZ5sH/+9RAioevbmt7f2rmL73g3OBaZcyx')
 
                 // Execute your commands here
                 bat '(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
