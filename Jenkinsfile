@@ -7,47 +7,37 @@ pipeline {
         git 'https://github.com/agustinrp89/Reto3Nao.git'
       }
     }
-    stage('Install dep') {
+    stage('Install dependencies') {
       steps {
-        
-          bat 'npm install'
-          
-          //sh 'yarn test'
-        
+        bat 'npm install'
       }
     }
-  stage('Testing') {
+    stage('Testing') {
       steps {
-    
-        //  sh 'yarn test'
-          bat 'npm run test'
-        
+        bat 'npm run test'
       }
     }
-stage('Build and push Docker image') {
-    steps {
+    stage('Build and push Docker image') {
+      steps {
         withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'agustin_mdp89',
-            accessKeyVariable: 'AKIA3OFVWLWTTR7ON5YF',
-            secretKeyVariable: 'NHk1PprZ5sH/+9RAioevbmt7f2rmL73g3OBaZcyx'
+          $class: 'AmazonWebServicesCredentialsBinding',
+          credentialsId: 'YOUR_CREDENTIALS_ID',
+          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {
-            script {
-                // Mask sensitive information
-                maskPasswords([
-                    $class: 'AmazonWebServicesCredentialsBinding$AWSCredentialsImpl',
-                    accessKeyVariable: 'AKIA3OFVWLWTTR7ON5YF',
-                    secretKeyVariable: 'NHk1PprZ5sH/+9RAioevbmt7f2rmL73g3OBaZcyx'
-                ])
-
-                // Execute your commands here
-                bat '(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
-                bat 'docker build -t jenkins-pipeline .'
-                bat 'docker tag jenkins-pipeline:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkins-pipeline:latest'
-                bat 'docker push 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkins-pipeline:latest'
-            }
+          script {
+            maskPasswords([
+              $class: 'AmazonWebServicesCredentialsBinding$AWSCredentialsImpl',
+              accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+              secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+            ])
+            bat '(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
+            bat 'docker build -t jenkins-pipeline .'
+            bat 'docker tag jenkins-pipeline:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkins-pipeline:latest'
+            bat 'docker push 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkins-pipeline:latest'
+          }
         }
+      }
     }
-}
-    }  
   }
+}
