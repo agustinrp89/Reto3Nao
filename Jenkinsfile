@@ -29,8 +29,8 @@ pipeline {
           withCredentials([[
             $class: 'AmazonWebServicesCredentialsBinding', 
             credentialsId: 'agustin_mdp89',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+            accessKeyVariable: 'AKIA3OFVWLWTTR7ON5YF',
+            secretKeyVariable: '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'
           ]]) {
             bat '(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
             bat 'docker build -t jenkins-pipeline .'
