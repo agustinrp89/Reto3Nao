@@ -1,9 +1,6 @@
 pipeline {
   agent any
-   tools {
-        nodejs '17.3.1'
-    }
-  stages {
+    stages {
     stage('Clone repository') {
       steps {
         git 'https://github.com/agustinrp89/Reto3Nao.git'
