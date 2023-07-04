@@ -9,7 +9,7 @@ pipeline {
     
     stage('Install dep') {
       steps {
-        sh 'npm install'
+        bat 'npm install'
         
         // sh 'yarn test'
       }
@@ -18,7 +18,7 @@ pipeline {
     stage('Testing') {
       steps {
         // sh 'yarn test'
-        sh 'npm run test'
+        bat 'npm run test'
       }
     }
     
@@ -30,10 +30,10 @@ pipeline {
            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']
         ]) {
-          sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
-          sh 'docker build -t jenkin-pipeline .'
-          sh 'docker tag jenkin-pipeline:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkin-pipeline:latest'
-          sh 'docker push 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkin-pipeline:latest'
+          bat 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 786360065447.dkr.ecr.us-east-2.amazonaws.com'
+          bat 'docker build -t jenkin-pipeline .'
+          bat 'docker tag jenkin-pipeline:latest 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkin-pipeline:latest'
+          bat 'docker push 786360065447.dkr.ecr.us-east-2.amazonaws.com/jenkin-pipeline:latest'
         }
       }
     }
